@@ -41,4 +41,26 @@ normalizeApiList = (apiResponse) =>{
     }
 }
 
-module.exports = {normalizeDb,normalizeApi,normalizeApiList,};
+
+normalizeTypes = (Typesarr) =>{
+    
+    let normalizearray=[]
+    let finalArray=[]
+    for(let i=0;i<Typesarr.length;i++){
+        for(let j=0; j<Typesarr[i].length; j++){
+            normalizearray.push(Typesarr[i][j].dataValues)  
+        }
+    }
+    
+    for (let i=0;i<normalizearray.length;i+=2){
+        finalArray.push(normalizearray[i].name)
+    }
+           
+    
+    return{
+        results:finalArray,
+    }
+}
+
+
+module.exports = {normalizeDb,normalizeApi,normalizeApiList,normalizeTypes};

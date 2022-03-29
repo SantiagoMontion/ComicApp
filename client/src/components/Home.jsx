@@ -17,7 +17,7 @@ function Home() {
       dispatch(getRecipes());
       dispatch(getTypes())
     },[])
-    console.log(types)
+    
   return (
     <div className="home_container">
        <div className='nav'>
@@ -27,7 +27,7 @@ function Home() {
           <HomeDropMenu></HomeDropMenu>
       </div>
        <div className="HomeBody">
-         <HomeBody items={recipes}></HomeBody>
+         <HomeBody items={recipes} typesarray={types}></HomeBody>
        </div>
      </div>
   );

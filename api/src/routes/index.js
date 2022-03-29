@@ -3,7 +3,7 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 const { Recipe, Type } = require("../db");
 const axios = require("axios");
-const {normalizeDb,normalizeApi,normalizeApiList} = require('./utils.js');
+const {normalizeDb,normalizeApi,normalizeApiList,normalizeTypes} = require('./utils.js');
 const router = Router();
 
 // Configurar los routers
@@ -83,16 +83,20 @@ router.get('/recipes/:idReceta',async(req, res)=>{
 
 router.get('/types',async(req,res)=>{
      try{
-        
-        var array =["Gluten Free","Ketogenic","Vegetarian","Lacto-Vegetarian","Ovo-Vegetarian","Vegan","Pescetarian","Paleo","Primal","Low FODMAP","Whole30"]
-        var allTypes=[]
+        const dataDB = await Type.findAll()  //Consultamos si ya estan cargadas en la DB
+        if(dataDB.length === 0){
+            var array =["Gluten Free","Ketogenic","Vegetarian","Lacto-Vegetarian","Ovo-Vegetarian","Vegan","Pescetarian","Paleo","Primal","Low FODMAP","Whole30"]
+            var allTypes=[]
 
-        for(var i=0;i<array.length;i++){
-            allTypes.push(await Type.findOrCreate({where: {name: array[i]}}));
+            for(var i=0;i<array.length;i++){
+                allTypes.push(await Type.findOrCreate({
+                    where: {name: array[i]},
+                    
+                }));
+            }
+            console.log(normalizeTypes(allTypes))
+            res.status(200).json(allTypes)
         }
-        
-        
-        res.status(200).json(allTypes)
       
      }
      catch(error){
