@@ -81,11 +81,11 @@ router.get('/recipes/:idReceta',async(req, res)=>{
 })  
 
 
-router.get('/types',async(req,res)=>{
+router.get('/types',async(req,res)=>{//FALTA TOMAR DATOS DE LA API Y AGREGARLAS Y CONCATENARLAS
      try{
         const dataDB = await Type.findAll()  //Consultamos si ya estan cargadas en la DB
-        if(dataDB.length === 0){
-            var array =["Gluten Free","Ketogenic","Vegetarian","Lacto-Vegetarian","Ovo-Vegetarian","Vegan","Pescetarian","Paleo","Primal","Low FODMAP","Whole30"]
+        if(!dataDB.length){
+            var array =["gluten Free","ketogenic","vegetarian","lacto-vegetarian","ovo-vegetarian","vegan","pescetarian","paleo","primal","low FODMAP","whole30"]
             var allTypes=[]
 
             for(var i=0;i<array.length;i++){
@@ -94,8 +94,8 @@ router.get('/types',async(req,res)=>{
                     
                 }));
             }
-            console.log(normalizeTypes(allTypes))
-            res.status(200).json(allTypes)
+            console.log(normalizeTypes(allTypes).results)
+            res.status(200).json(normalizeTypes(allTypes).results)
         }
       
      }

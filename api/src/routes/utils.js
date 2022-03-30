@@ -42,6 +42,7 @@ normalizeApiList = (apiResponse) =>{
 }
 
 
+//Funcion para Normalizar los datos de Types de la DB
 normalizeTypes = (Typesarr) =>{
     
     let normalizearray=[]

@@ -6,26 +6,22 @@ function HomeBody({items,typesarray}) {
   
   return (
       
-      <div className="body_container">
-      <ul >
+      <div className="recipe_grid">
+      
         {items?.map(recipe=>{
-          // console.log(typesarray[1][0].name)
-          if (items[typesarray.name]){
-            console.log('hola')
-          }
+          
           return(
-            <div className="recipeContainer" >
-              <li key={recipe.id}>
-                
-                <h2>{recipe.title}</h2>
-                <img src={recipe.image} alt="recipeimg" />
-                
-
-              </li>
-            </div>
+            
+              <div className="item">
+              <h2>{recipe.title}</h2>
+              <img src={recipe.image} alt="recipeimg" />                
+              <h4>{recipe.diets}</h4>
+              
+              </div>
+            
           )
         })}
-      </ul>
+      
       </div>
   );
 }
