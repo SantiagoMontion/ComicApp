@@ -27,18 +27,32 @@
 }
 
 .input_container input{
-    height: 30px;
-    width: 250px;
+    height: 35px;
+    width: 280px;
     background-color: transparent;
     border-radius: 10px;
     border: 1px white solid;
     color: white;
-    margin-left: 100px;
+    
 }
 
 .input_container{
     display: flex;
     align-items: center;
     margin-left: 720px;
+    
 
+}
+
+.search_container{
+    width: 25px;
+    height: 25px;
+}
+
+.search_container img{
+    
+    filter: invert(100%);
+    margin-left: 10px;
+    max-width: 100%;
+    max-height: 100%;
 }

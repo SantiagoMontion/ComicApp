@@ -68,41 +68,54 @@ function rootReducer(state = initialState, action) {
         }
 
 
-        // case actionTypes.SORT_POKEMONS_BY_STRENGTH: {
-        //   if (action.payload === "asc") {
-        //     return {
-        //       ...state,
-        //       pokemons: state.filtered?.slice().sort((a, b) => {
-        //         return b.attack - a.attack;
-        //       }),
-        //     };
-        //   } else if (action.payload === "desc") {
-        //     return {
-        //       ...state,
-        //       pokemons: state.filtered?.slice().sort((a, b) => {
-        //         return a.attack - b.attack;
-        //       }),
-        //     };
-        //   } else {
-        //     return { ...state, pokemons: state.filtered };
-        //   }
-        // }
-    
-        case actionTypes.SORT_RECIPES_ALPHABETICALLY: {
+        case actionTypes.SORT_RECIPES_PUNTUACTION: {
           console.log(state.recipesLoaded)
           if (action.payload === "asc") {
-
             return {
                 ...state,
-                recipesLoaded: state.allRecipes.sort()
+                recipesLoaded: state.filtered.sort((a,b)=>{
+                  return b.spoonacularScore - a.spoonacularScore
+                })
                 
               
             };
             
-          } else if (action.payload === "desc") {
+          } else if (action.payload === "des") {
             return {
               ...state,
-              recipesLoaded: state.filtered.reverse(),
+              recipesLoaded: state.filtered.sort((a,b)=>{
+                return a.spoonacularScore - b.spoonacularScore
+              })
+            };
+          } 
+          else {
+            return { ...state, recipesLoaded: state.filtered };
+          }
+
+        }
+    
+        case actionTypes.SORT_RECIPES_ALPHABETICALLY: {
+          if (action.payload === "asc") {
+
+            return {
+                ...state,
+                recipesLoaded: state.filtered.sort((a,b)=>{
+                  if(a.title > b.title) return 1
+                  if(a.title< b.title) return -1
+                  return 0;
+                })
+                
+              
+            };
+            
+          } else if (action.payload === "des") {
+            return {
+              ...state,
+              recipesLoaded: state.filtered.sort((a,b)=>{
+                if(a.title > b.title) return -1
+                if(a.title < b.title) return 1
+                return 0;
+              })
             };
           } 
           else {
@@ -112,6 +125,12 @@ function rootReducer(state = initialState, action) {
         }
 
         
+        case actionTypes.GET_RECIPE_BY_ID: {
+          return { ...state, recipeDetail: action.payload};
+        }
+
+
+
 
         default:
             return { ...state };

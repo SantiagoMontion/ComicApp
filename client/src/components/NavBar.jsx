@@ -1,9 +1,20 @@
 import  "../styles/NavBar.css";
 import Logo from "../styles/img/LogoNav.png"
+import LogoSearch from "../styles/img/LogoSearch.png"
 import { Link } from "react-router-dom";
 
 
 function NavBar() {
+  let name;
+
+  //funcion para obtener el valor del input
+  // function getValue(e){
+  //   e.preventDefault()
+  //   if(e){
+
+  //   }
+  // }
+
   return (
     <div className='nav_container'>
       
@@ -21,7 +32,13 @@ function NavBar() {
       </div>
       </Link>
       <div className="input_container">
-      <input placeholder="   Buscar..."></input>
+      <input value={name} placeholder="   Buscar..."></input>
+
+      <Link to="/recipes/?name=pasta" style={{textDecoration: 'none'}}>
+      <div className="search_container">
+        <img  src={LogoSearch}></img>
+      </div>
+      </Link>
       </div>
     </div>
   );

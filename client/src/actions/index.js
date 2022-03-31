@@ -6,11 +6,11 @@ export const actionTypes = {
     GET_RECIPES: "GET_RECIPES",
     GET_RECIPES_DETAIL: "GET_RECIPES_DETAIL",
     GET_TYPES: "GET_TYPES",
-
-    GET_RECIPE_BY_ID: "GET_RECIPE_BY_ID",
     SEARCH_RECIPE: "SEARCH_RECIPE",
     FILTER_RECIPES_BY_TYPE: "FILTER_RECIPES_BY_TYPE",
-    SORT_RECIPES_ALPHABETICALLY: "SORT_RECIPES_ALPHABETICALLY"
+    SORT_RECIPES_ALPHABETICALLY: "SORT_RECIPES_ALPHABETICALLY",
+    SORT_RECIPES_PUNTUACTION: "SORT_RECIPES_PUNTUACTION",
+    GET_RECIPE_BY_ID: "GET_RECIPE_BY_ID",
   };
 
 
@@ -56,6 +56,30 @@ export function sortAlpabeticaly(type){
   return{
     type: actionTypes.SORT_RECIPES_ALPHABETICALLY,
     payload: type,
+  };
+}
+
+
+export function sortPuntuactionaly(type){
+  return{
+    type: actionTypes.SORT_RECIPES_PUNTUACTION,
+    payload: type
+  }
+}
+
+
+export function getRecipeById(id){
+  return function (dispatch) {
+    return axios(`/recipes/${id}`)
+      .then((resp) => {
+        return dispatch({
+          type: actionTypes.GET_RECIPE_BY_ID,
+          payload: resp.data,
+        });
+      })
+      .catch((e) => {
+        console.log("ERROR GET RECIPES BY ID" + e);
+      });
   };
 }
 

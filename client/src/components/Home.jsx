@@ -1,10 +1,10 @@
-import NavBar from "./NavBar";
 import HomeBody from "./HomeBody"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import  "../styles/Home.css";
-import {getRecipes, getTypes,filterByType,sortAlpabeticaly} from "../actions/index"
+import {getRecipes, getTypes,filterByType,sortAlpabeticaly,sortPuntuactionaly} from "../actions/index"
 import HomeDropMenu from './HomeDropMenu.jsx';
+import Pagination from './Pagination.jsx'
 
 function Home() {
 
@@ -35,18 +35,25 @@ function Home() {
     dispatch(sortAlpabeticaly(type));
     setOrder(type);
   }
+
+  const handleSortPunt = (type)=>{
+    dispatch (sortPuntuactionaly(type))
+    setOrder(type);
+  }
     
   return (
     <div className="home_container">
-       <div className='nav'>
-        <NavBar></NavBar>
-       </div>
+       
        <div className="DropsMenus">
-          <HomeDropMenu types={types} handleFilter={handleTypeFilter} handleSortAlph={handleSortAlph}></HomeDropMenu>
+          <HomeDropMenu types={types} handleFilter={handleTypeFilter} handleSortAlph={handleSortAlph} handleSortPunt={handleSortPunt}></HomeDropMenu>
       </div>
        <div className="HomeBody">
 
          <HomeBody items={recipes}></HomeBody>
+       </div>
+
+       <div className="Pagination_container">
+         <Pagination></Pagination>
        </div>
      </div>
   );

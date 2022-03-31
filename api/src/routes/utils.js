@@ -19,17 +19,22 @@ normalizeDb = (recipe_db_name)=>{
 //Funcion utilizada para normalizar los datos desde la API
 
 normalizeApi = (apiResponse)=>{
-   
+    //console.log(apiResponse)
     return {
         name: apiResponse.data.title,
+
+        image: apiResponse.data.image,
+
+        diets: apiResponse.data.diets,
 
         plate_resume: apiResponse.data.summary,
 
         punctuation: apiResponse.data.spoonacularScore,
 
+        steps: apiResponse.data.instructions,
+
         healty_level: apiResponse.data.healthScore,
 
-        steps: apiResponse.data.instructions,
     }
 
 };
