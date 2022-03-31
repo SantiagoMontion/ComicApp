@@ -2,24 +2,56 @@
     display: grid;
     grid-auto-columns: max-content;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px,auto);
+    grid-gap: 0px;
+    grid-auto-rows: minmax(150px,auto);
+    margin-top: 50px;
+   
+    
     
 }
 
 .item{
     grid-row: span 1;
     grid-column:  span 1;
-    background-color: #0f0f0f;
-    color:white;
-    border-radius: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    border-radius: 10px;
+    margin: 30px 50px 0px 50px;
+    box-shadow: 1px 1px 5px black;
+    position: relative;
 }
 
-.item img{
-    max-width: 100%;
-    max-height: 100%;
+.item:hover{
+    box-shadow: 1px 1px 15px black;
 }
+
+
+
+
+.title{
+    font-size: x-large;
+    background-color: #0f0f0f;
+    color: rgb(255, 255, 255);;
+    padding: 2px;
+    
+}
+
+
+.dietsList{
+    display: inline-flex;
+    
+    padding: 2px;
+    margin-left: 20px;
+    font-size: 19px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    margin-top: 10px;
+}
+
+.inside{
+    color: #000000;
+    padding: 15px;
+    
+}
+
+
+

@@ -57,9 +57,22 @@ normalizeTypes = (Typesarr) =>{
         finalArray.push(normalizearray[i].name)
     }
            
-    
-    return{
-        results:finalArray,
+    if(finalArray.length){
+        return{
+            results:finalArray,
+        }
+
+    }
+    else{
+        let normalizearray=[]
+        let finalArray=[]
+        for(let i=0;i<Typesarr.length;i++){
+            normalizearray.push(Typesarr[i].dataValues)
+        }
+        for (let i=0;i<normalizearray.length;i++){
+            finalArray.push(normalizearray[i].name)
+        }
+        return{results:finalArray}
     }
 }
 

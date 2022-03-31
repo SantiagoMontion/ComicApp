@@ -24,13 +24,13 @@ router.get('/recipes', async(req,res)=>{
             }
             else{
                 //EN CASO DE NO ENCONTRARLA BUSCAMOS EN LA API
-                const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&apiKey=563b2d75fe814c9e9bf7ea1820a28898`);
+                const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&apiKey=6eb6ee8833c04384894d52c3b6fe97bc `);
                 return res.json(normalizeApiList(apiResponse)) 
             }
         }
         else{    //EN CASO DE NO EXISTIR EL QUERY PARAM 
             //Llamamos a la Api
-            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?&addRecipeInformation=true&apiKey=563b2d75fe814c9e9bf7ea1820a28898");
+            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?&addRecipeInformation=true&number=6&apiKey=6eb6ee8833c04384894d52c3b6fe97bc ");
             
             var array = normalizeApiList(apiCallResp).results;
             
@@ -71,7 +71,7 @@ router.get('/recipes/:idReceta',async(req, res)=>{
     }
     catch{
         try{
-            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=563b2d75fe814c9e9bf7ea1820a28898`)
+            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=6eb6ee8833c04384894d52c3b6fe97bc `)
             return res.json(normalizeApi(apiCall))
         }   
         catch(error){
@@ -82,10 +82,10 @@ router.get('/recipes/:idReceta',async(req, res)=>{
 
 
 router.get('/types',async(req,res)=>{//FALTA TOMAR DATOS DE LA API Y AGREGARLAS Y CONCATENARLAS
-     try{
+    try{
         const dataDB = await Type.findAll()  //Consultamos si ya estan cargadas en la DB
         if(!dataDB.length){
-            var array =["gluten Free","ketogenic","vegetarian","lacto-vegetarian","ovo-vegetarian","vegan","pescetarian","paleo","primal","low FODMAP","whole30"]
+            var array =["gluten free","ketogenic","vegetarian","lacto-vegetarian","ovo-vegetarian","vegan","pescetarian","paleo","primal","low FODMAP","whole30"]
             var allTypes=[]
 
             for(var i=0;i<array.length;i++){
@@ -94,14 +94,17 @@ router.get('/types',async(req,res)=>{//FALTA TOMAR DATOS DE LA API Y AGREGARLAS 
                     
                 }));
             }
-            console.log(normalizeTypes(allTypes).results)
-            res.status(200).json(normalizeTypes(allTypes).results)
+            
+        res.status(200).json(normalizeTypes(allTypes).results)
+        }
+        else{
+            res.status(200).json(normalizeTypes(dataDB).results)
         }
       
-     }
-     catch(error){
-        res.status(400).json("Error to create types: " + error)
-     }
+    }
+      catch(error){
+         res.status(400).json("Error to create types: " + error)
+      }
 })
 
 

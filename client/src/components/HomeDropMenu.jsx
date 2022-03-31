@@ -1,9 +1,22 @@
-
 import  "../styles/homeDropMenu.css";
 
 
-function HomeDropMenu() {
- 
+function HomeDropMenu({types,handleFilter,handleSortAlph}) {
+  
+  
+  //Funcion para tomar el valor del tipo de dieta
+  function getValue(e){
+    handleFilter(e.target.value);
+  }
+
+
+  //Funcion para el boton asc or des
+
+  function getFilterOp(e){
+    handleSortAlph(e.target.value)
+  }
+
+
   return (
     <div className="dropbtn_containers">
     
@@ -11,18 +24,26 @@ function HomeDropMenu() {
     <div className="dropdown">
     <button className="dropbtn">Filter: Diet Type</button>
     <div className="dropdown-content">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
+    {types.map(function(diet){
+      return(<button value={diet} onClick={getValue}>{diet}</button>)
+        
+        
+    })}
+    <button value="default" onClick={getValue}>All Recipes</button>
+    
+   
+    
+
     </div>
     </div>
 
     <div className="dropdown">
     <button className="dropbtn">Filter: Alphabet Order</button>
     <div className="dropdown-content">
-    <a href="#">Link 4</a>
-    <a href="#">Link 5</a>
-    <a href="#">Link 6</a>
+
+    <button value="asc" onClick={getFilterOp}>ascendant</button>
+    <button value="des" onClick={getFilterOp}>descendant</button>
+  
     </div>
     </div>
 
@@ -30,9 +51,9 @@ function HomeDropMenu() {
     <div className="dropdown">
     <button className="dropbtn">Filter: Puntuaction</button>
     <div className="dropdown-content">
-    <a href="#">Link 7</a>
-    <a href="#">Link 8</a>
-    <a href="#">Link 9</a>
+    <a href="#">ascendant</a>
+    <a href="#">descendant</a>
+  
     </div>
     </div>
 
@@ -42,6 +63,9 @@ function HomeDropMenu() {
     </div>
       
   );
+
+  
+  
 }
 
 
