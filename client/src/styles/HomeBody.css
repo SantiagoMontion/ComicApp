@@ -3,9 +3,9 @@
     grid-auto-columns: max-content;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 0px;
-    grid-auto-rows: minmax(150px,auto);
-    margin-top: 50px;
-   
+    grid-auto-rows: minmax(50px,auto);
+    margin-top: 20px;
+    
     
     
 }
@@ -15,43 +15,80 @@
     grid-column:  span 1;
     border-radius: 10px;
     margin: 30px 50px 0px 50px;
-    box-shadow: 1px 1px 5px black;
-    position: relative;
+    border: 1px rgba(0, 0, 0, 0.178) solid;
+    justify-content: center;
 }
 
 .item:hover{
     box-shadow: 1px 1px 15px black;
 }
 
+.img-container{
+    margin-top: 10px;
+    width: 100%;
+    
+}
 
-
-
-.title{
-    font-size: x-large;
-    background-color: #0f0f0f;
-    color: rgb(255, 255, 255);;
-    padding: 2px;
+.img-container img{
+    border-radius: 10px;
     
 }
 
 
 .dietsList{
-    display: inline-flex;
+    background-color: #0000001c;
+    list-style-type: none; 
+    border-radius: 10px;
+    margin: 0px 15px 10px;
     
-    padding: 2px;
-    margin-left: 20px;
-    font-size: 19px;
-    background-color: #ffffff;
-    border-radius: 5px;
+}
+
+.dietsList:hover{
+    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.247);
+    
+    transform: scale(1.05);
+}
+
+.dietsList button {
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    padding: 10px;
     color: rgb(0, 0, 0);
-    margin-top: 10px;
 }
 
-.inside{
-    color: #000000;
-    padding: 15px;
+.dietsList button:hover{
+    color: black;
+}
+
+.diet-container{
+    
+    margin: 0 -5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+}
+
+
+
+.titleAndDiet{
+    color: black;
+    background-color: #ffffff;
+}
+
+
+@media (max-width: 700px){
+    .recipe_grid{
+        display: grid;
+        grid-auto-columns: max-content;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 0px;
+        grid-auto-rows: minmax(5px,auto);
+        margin-top: 10px;
+    }
+
     
 }
-
-
-

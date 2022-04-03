@@ -1,21 +1,37 @@
 import  "../styles/NavBar.css";
 import Logo from "../styles/img/LogoNav.png"
-import LogoSearch from "../styles/img/LogoSearch.png"
 import { Link } from "react-router-dom";
+import {useState,useEffect} from "react";
+import HomeBody from "./HomeBody";
+
+function NavBar({recipes,handleSearch}) {
 
 
-function NavBar() {
-  let name;
+
+  const [state, setState] = useState("") //funcion para manejar el estado del searchbar
 
   //funcion para obtener el valor del input
-  // function getValue(e){
-  //   e.preventDefault()
-  //   if(e){
+  const handleChange = e => {
+    setState(e.target.value);
+  };
 
-  //   }
-  // }
+  useEffect(() => {
+    if(state ===''){
+      handleSearch([])
+      return
+    }
+    let results = recipes.filter(r =>{
+    if(r.title){
+      return (r.title.toLowerCase().includes(state))
+    }
+    });
+    handleSearch(results)
+  }, [state]);
+
+
 
   return (
+    <div>
     <div className='nav_container'>
       
       <Link to="/home">
@@ -32,14 +48,16 @@ function NavBar() {
       </div>
       </Link>
       <div className="input_container">
-      <input value={name} placeholder="   Buscar..."></input>
 
-      <Link to="/recipes/?name=pasta" style={{textDecoration: 'none'}}>
-      <div className="search_container">
-        <img  src={LogoSearch}></img>
+      <input type="text"  onChange={handleChange} value={state} placeholder="   Buscar..."></input>
+
+      
       </div>
-      </Link>
+      <div className="HomeBody">
+        
+      
       </div>
+    </div>
     </div>
   );
 }

@@ -68,6 +68,27 @@ function rootReducer(state = initialState, action) {
         }
 
 
+        case actionTypes.SORT_SEARCHBAR: {
+          const array = action.payload; //action.payload debería llegar como un array
+          
+          if (!array.length)
+            return {
+              ...state,
+              recipesLoaded: state.allRecipes,
+              filtered: state.allRecipes,
+              
+            };
+
+           else {
+            return {
+              ...state,
+              recipesLoaded: array,
+              filtered: array,
+            };
+          }
+        }
+
+
         case actionTypes.SORT_RECIPES_PUNTUACTION: {
           console.log(state.recipesLoaded)
           if (action.payload === "asc") {

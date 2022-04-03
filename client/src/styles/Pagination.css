@@ -1,18 +1,19 @@
-.pagination_contain{
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-.pagination_contain button{
-    color: white;
+.pagination {
+    display: inline-block;
+    margin-top: 55px;
+  }
+  
+.pagination a {
+    color: black;
+    float: left;
+    padding: 10px 18px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+.pagination a.active {
     background-color: #0f0f0f;
-    width: 200px;
-    height:50px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 10px;
-    font-size: 19px;
-}
+    color: white;
+  }
+  
+.pagination a:hover:not(.active) {background-color: #ddd;}

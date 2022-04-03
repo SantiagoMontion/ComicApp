@@ -6,12 +6,16 @@ function Pagination() {
   
   return (
       
-      <div className="pagination_contain">
-      
-        <button>Previous</button>
-        <button>Next</button>
-      
-      </div>
+    <div className="pagination">
+      <a href="#">&laquo;</a>
+      <a className="active" href="#">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+      <a href="#">5</a>
+      <a href="#">6</a>
+      <a href="#">&raquo;</a>
+  </div>
   );
 }
 

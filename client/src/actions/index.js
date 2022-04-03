@@ -11,6 +11,7 @@ export const actionTypes = {
     SORT_RECIPES_ALPHABETICALLY: "SORT_RECIPES_ALPHABETICALLY",
     SORT_RECIPES_PUNTUACTION: "SORT_RECIPES_PUNTUACTION",
     GET_RECIPE_BY_ID: "GET_RECIPE_BY_ID",
+    SORT_SEARCHBAR: "SORT_SEARCHBAR"
   };
 
 
@@ -81,5 +82,13 @@ export function getRecipeById(id){
         console.log("ERROR GET RECIPES BY ID" + e);
       });
   };
+}
+
+
+export function sortSearchBar(array){
+  return{
+      type: actionTypes.SORT_SEARCHBAR,
+      payload: array
+  }
 }
 

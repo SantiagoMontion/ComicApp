@@ -24,13 +24,13 @@ router.get('/recipes', async(req,res)=>{
             }
             else{
                 //EN CASO DE NO ENCONTRARLA BUSCAMOS EN LA API
-                const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&apiKey=a4f0e54ba97c4aa6878162311859b8aa `);
+                const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&apiKey=4db018138def4598983fb6b61c5802ba`);
                 return res.json(normalizeApiList(apiResponse)) 
             }
         }
         else{    //EN CASO DE NO EXISTIR EL QUERY PARAM 
             //Llamamos a la Api
-            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=6&apiKey=a4f0e54ba97c4aa6878162311859b8aa ");
+            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=6&apiKey=4db018138def4598983fb6b61c5802ba");
             
             var array = normalizeApiList(apiCallResp).results;
             //Llamamos a la DB
@@ -69,7 +69,7 @@ router.get('/recipes/:idReceta',async(req, res)=>{
     }
     catch{
         try{
-            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=a4f0e54ba97c4aa6878162311859b8aa `)
+            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=4db018138def4598983fb6b61c5802ba`)
             return res.json(normalizeApi(apiCall))
         }   
         catch(error){
@@ -82,7 +82,7 @@ router.get('/recipes/:idReceta',async(req, res)=>{
 router.get('/types',async(req,res)=>{//FALTA TOMAR DATOS DE LA API Y AGREGARLAS Y CONCATENARLAS
     try{
 
-        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=a4f0e54ba97c4aa6878162311859b8aa ");
+        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=4db018138def4598983fb6b61c5802ba");
             
         var arrayApi = normalizeApiList(apiCallResp).results;
         var allApidiets = []
