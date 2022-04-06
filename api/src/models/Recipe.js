@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
 
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -32,6 +32,10 @@ module.exports = (sequelize) => {
 
     steps: {
       type: DataTypes.STRING,
+    },
+
+    image:{
+      type:DataTypes.STRING
     }
   });
 
@@ -44,6 +48,7 @@ module.exports = (sequelize) => {
     },
     name:{
       type: DataTypes.STRING,
+      allowNull: false,
     }
   });
 };

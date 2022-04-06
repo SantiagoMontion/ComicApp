@@ -3,7 +3,7 @@
     height: 70px;
     color: white;
     display: flex;
-    justify-content: flex-start;
+    
     
 }
 .nav_logo{
@@ -56,6 +56,22 @@
     max-height: 100%;
 }
 
+.CreateRecipe{
+    margin-left: 150px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+}
+.CreateRecipe h2{
+    color: white;
+}
+.CreateRecipe:hover{
+    background-color: #ffffff1a;
+}
+
+
+
+
 @media (max-width:1600px){
     .Navh2{
         white-space: nowrap;
@@ -79,7 +95,5 @@
         border: 1px white solid;
         color: white;  
     }
-
-    
-    
+       
 }

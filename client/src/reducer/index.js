@@ -150,7 +150,12 @@ function rootReducer(state = initialState, action) {
           return { ...state, recipeDetail: action.payload};
         }
 
-
+        
+        case actionTypes.POST_RECIPE:{
+          return {
+            ...state,
+          };
+        }
 
 
         default:

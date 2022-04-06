@@ -53,8 +53,10 @@ function NavBar({recipes,handleSearch}) {
 
       
       </div>
-      <div className="HomeBody">
-        
+      <div className="CreateRecipe">
+        <Link to="/new-recipe">
+        <h2>Create Recipe</h2>
+        </Link>
       
       </div>
     </div>

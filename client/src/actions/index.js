@@ -11,7 +11,8 @@ export const actionTypes = {
     SORT_RECIPES_ALPHABETICALLY: "SORT_RECIPES_ALPHABETICALLY",
     SORT_RECIPES_PUNTUACTION: "SORT_RECIPES_PUNTUACTION",
     GET_RECIPE_BY_ID: "GET_RECIPE_BY_ID",
-    SORT_SEARCHBAR: "SORT_SEARCHBAR"
+    SORT_SEARCHBAR: "SORT_SEARCHBAR",
+    POST_RECIPE: "POST_RECIPE",
   };
 
 
@@ -91,4 +92,20 @@ export function sortSearchBar(array){
       payload: array
   }
 }
+
+
+
+export function saveNewRecipe(recipe){ //debe llegar como un objeto
+  return function (dispatch) {
+    return axios
+      .post("/recipe", recipe)
+      .then((resp) => {
+        return dispatch({ type: actionTypes.POST_RECIPE, payload: resp });
+        })
+      .catch((e) => {
+        console.log("ROUTE ERROR "+ e);
+      });
+    };
+  }
+
 

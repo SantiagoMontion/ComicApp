@@ -2,15 +2,18 @@ import { Link } from "react-router-dom";
 import  "../styles/HomeBody.css";
 
 
-function HomeBody({items,handleFilter}) {
+function HomeBody({items,handleFilter,lastItemIndex,firstItemIndex}) {
 
   function getValue(e){
     handleFilter(e.target.value);
   }
+
+  
   return (
+    
       <div className="recipe_grid">
         
-        {items?.map(recipe=>{
+        {items?.slice(firstItemIndex, lastItemIndex).map(recipe=>{
           const link= "/recipes/" + `${recipe.id}`
           
           {if(recipe.title){
