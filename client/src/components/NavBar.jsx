@@ -2,22 +2,23 @@ import  "../styles/NavBar.css";
 import Logo from "../styles/img/LogoNav.png"
 import { Link } from "react-router-dom";
 import {useState,useEffect} from "react";
-import HomeBody from "./HomeBody";
-
-function NavBar({recipes,handleSearch}) {
 
 
+
+function NavBar({recipes,handleSearch,handleQuery}) {
 
   const [state, setState] = useState("") //funcion para manejar el estado del searchbar
 
   //funcion para obtener el valor del input
   const handleChange = e => {
+    
     setState(e.target.value);
   };
 
+
   useEffect(() => {
     if(state ===''){
-      handleSearch([])
+      handleSearch("default")
       return
     }
     let results = recipes.filter(r =>{
@@ -27,7 +28,13 @@ function NavBar({recipes,handleSearch}) {
     });
     handleSearch(results)
   }, [state]);
+  
+  
 
+
+  const handleSearchClick= e=>{
+    handleQuery(state)
+  }
 
 
   return (
@@ -50,8 +57,9 @@ function NavBar({recipes,handleSearch}) {
       <div className="input_container">
 
       <input type="text"  onChange={handleChange} value={state} placeholder="   Buscar..."></input>
-
       
+      <button onClick={handleSearchClick} >Search</button>
+   
       </div>
       <div className="CreateRecipe">
         <Link to="/new-recipe">

@@ -7,15 +7,17 @@ function HomeBody({items,handleFilter,lastItemIndex,firstItemIndex}) {
   function getValue(e){
     handleFilter(e.target.value);
   }
-
+  
+  if (!Array.isArray(items)){
+    items = items.data
+  }
   
   return (
-    
+      <div>
       <div className="recipe_grid">
-        
+
         {items?.slice(firstItemIndex, lastItemIndex).map(recipe=>{
           const link= "/recipes/" + `${recipe.id}`
-          
           {if(recipe.title){
           return(
             
@@ -54,6 +56,8 @@ function HomeBody({items,handleFilter,lastItemIndex,firstItemIndex}) {
           )
         }}
         })}
+        
+      </div>
       
       </div>
   );

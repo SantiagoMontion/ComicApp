@@ -9,30 +9,30 @@ export  default function validate(input) {  //Funcion para validar y devolver el
     }
 
 
-    if (!input.resume){
-      errors.resume = 'Resume is required';
+    if (!input.summary){
+      errors.summary = 'Resume is required';
     } 
-    else if (input.resume.length < 10) {
-      errors.resume = 'Resume is to short';
+    else if (input.summary.length < 10) {
+      errors.summary = 'Resume is to short';
     }
 
 
     
       
-    if(!parseInt(input.punctuation)){
-          errors.punctuation = "Punctuation must be a number"
+    if(!parseInt(input.spoonacularScore)){
+          errors.spoonacularScore = "Punctuation must be a number"
       }
-      else if (input.punctuation.length > 2) {
-        errors.punctuation = 'Punctuation must have only 2 caracters';
+      else if (input.spoonacularScore.length > 2) {
+        errors.spoonacularScore = 'Punctuation must have only 2 caracters';
       }
 
 
       
-    if(!parseInt(input.healty_level)){
-          errors.healty_level = "Healty level must be a number"
+    if(!parseInt(input.healthScore)){
+          errors.healthScore = "Healty level must be a number"
       }
-      else if (input.healty_level.length > 2) {
-        errors.healty_level = 'Healty level must have only 2 caracters';
+      else if (input.healthScore.length > 2) {
+        errors.healthScore = 'Healty level must have only 2 caracters';
       }
 
 

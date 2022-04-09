@@ -13,6 +13,8 @@ export const actionTypes = {
     GET_RECIPE_BY_ID: "GET_RECIPE_BY_ID",
     SORT_SEARCHBAR: "SORT_SEARCHBAR",
     POST_RECIPE: "POST_RECIPE",
+    GET_RECIPE_BY_QUERY: "GET_RECIPE_BY_QUERY",
+    GET_BY_QUERY: "GET_BY_QUERY"
   };
 
 
@@ -107,5 +109,21 @@ export function saveNewRecipe(recipe){ //debe llegar como un objeto
       });
     };
   }
+
+
+  export function getRecipesByQuery(query){ 
+    return function (dispatch) {
+      return axios
+        
+        .get("/recipes?query=" + query)
+        .then((resp) => {
+          
+          return dispatch({ type: actionTypes.GET_BY_QUERY, payload: resp.data });
+          })
+        .catch((e) => {
+          console.log("QUERY PARAM ERROR "+ e);
+        });
+      };
+    }
 
 

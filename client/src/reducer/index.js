@@ -7,6 +7,7 @@ const initialState = {
     recipeDetail: {}, //detalles de la receta
     typesLoaded:[], //todos los tipos de dietas
     filtered:[], //contiene las recipes filtradas
+    filteredbyquery:[],
   };
 
 
@@ -70,15 +71,15 @@ function rootReducer(state = initialState, action) {
 
         case actionTypes.SORT_SEARCHBAR: {
           const array = action.payload; //action.payload debería llegar como un array
-          
+          if(Array.isArray(array)){
           if (!array.length)
             return {
               ...state,
-              recipesLoaded: state.allRecipes,
-              filtered: state.allRecipes,
+              recipesLoaded: [],
+              filtered: [],
               
             };
-
+          
            else {
             return {
               ...state,
@@ -87,14 +88,24 @@ function rootReducer(state = initialState, action) {
             };
           }
         }
+        else{
+          return {
+            ...state,
+            recipesLoaded: state.allRecipes,
+            filtered: state.allRecipes,
+            
+          };
+        }
+        }
+        
 
 
         case actionTypes.SORT_RECIPES_PUNTUACTION: {
-          console.log(state.recipesLoaded)
+          
           if (action.payload === "asc") {
             return {
                 ...state,
-                recipesLoaded: state.filtered.sort((a,b)=>{
+                recipesLoaded: state.filtered.slice().sort((a,b)=>{
                   return b.spoonacularScore - a.spoonacularScore
                 })
                 
@@ -104,7 +115,7 @@ function rootReducer(state = initialState, action) {
           } else if (action.payload === "des") {
             return {
               ...state,
-              recipesLoaded: state.filtered.sort((a,b)=>{
+              recipesLoaded: state.filtered.slice().sort((a,b)=>{
                 return a.spoonacularScore - b.spoonacularScore
               })
             };
@@ -117,12 +128,12 @@ function rootReducer(state = initialState, action) {
     
         case actionTypes.SORT_RECIPES_ALPHABETICALLY: {
           if (action.payload === "asc") {
-
+            
             return {
                 ...state,
                 recipesLoaded: state.filtered.sort((a,b)=>{
-                  if(a.title > b.title) return 1
-                  if(a.title< b.title) return -1
+                  if(a.title.toLowerCase() > b.title.toLowerCase()) return 1
+                  if(a.title.toLowerCase()< b.title.toLowerCase()) return -1
                   return 0;
                 })
                 
@@ -133,8 +144,8 @@ function rootReducer(state = initialState, action) {
             return {
               ...state,
               recipesLoaded: state.filtered.sort((a,b)=>{
-                if(a.title > b.title) return -1
-                if(a.title < b.title) return 1
+                if(a.title.toLowerCase() > b.title.toLowerCase()) return -1
+                if(a.title.toLowerCase() < b.title.toLowerCase()) return 1
                 return 0;
               })
             };
@@ -157,6 +168,11 @@ function rootReducer(state = initialState, action) {
           };
         }
 
+        case actionTypes.GET_BY_QUERY:{
+          return{
+            ...state,recipesLoaded: action.payload
+          }
+        }
 
         default:
             return { ...state };

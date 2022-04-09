@@ -20,12 +20,15 @@
 .recipeimg{
     border-radius: 20px;
     box-shadow: 1px 1px 10px black;
+    width: 550px;
+    height: 420px;
+
 }
 
 .img-contain{
     display: flex;
     justify-content: flex-start;
-    margin-left: 20px;
+    margin-left: 50px;
 }
 
 .recipe_name{
@@ -115,3 +118,41 @@
     line-height: 25px;
     letter-spacing: 1px;
 }
+
+.BackLogo:hover{
+    filter: invert(100%);
+    
+}
+
+
+@media (max-width: 700px){
+    .infoContainer{
+        width: 400px;
+        justify-content: center;
+    }
+    .img-plate{
+        flex-wrap: wrap;
+        width: 400px;
+        justify-content: center;
+    }
+
+    .img-contain{
+        justify-content: center;
+        margin-left: 0px;
+    }
+    .recipeimg{
+        width: 400px;
+        height: 250px;
+    }
+  
+    .PlateResumeContainer{
+        width: 400px;
+        margin-left: 0px;
+    }
+    
+    .Puntuactionh2{
+        width: 100%;
+    }
+
+    .Healtyh2{width: 100%;}
+  }

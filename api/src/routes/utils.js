@@ -1,7 +1,7 @@
 //Funcion utilizada para normalizar la info de la DB
 //Retornando un objeto con las propiedades que necesito
 normalizeDb = (recipe_db)=>{
-    dietsArray= []
+    let dietsArray= []
 
     for (let i=0; i<recipe_db.length;i++){
         recipe_db[i].dataValues.types?.map((d)=>{
@@ -9,13 +9,15 @@ normalizeDb = (recipe_db)=>{
             dietsArray.push(d.dataValues.name)
         })
         return{
+            id: recipe_db[i].dataValues.id,
+            
             title: recipe_db[i].dataValues.title,
     
-            summary: recipe_db[i].dataValues.plate_resume,
+            summary: recipe_db[i].dataValues.summary,
     
-            spoonacularScore: recipe_db[i].dataValues.punctuation,
+            spoonacularScore: recipe_db[i].dataValues.spoonacularScore,
     
-            healthScore: recipe_db[i].dataValues.healty_level,
+            healthScore: recipe_db[i].dataValues.healthScore,
     
             steps: recipe_db[i].dataValues.steps,
     
@@ -29,24 +31,53 @@ normalizeDb = (recipe_db)=>{
 };
 
 
+normalizeDbCreated = (Dbdata) =>{
+    let dietsArray=[]
+    
+    Dbdata.dataValues.types?.map((d)=>{
+            
+        dietsArray.push(d.dataValues.name)
+    })
+    
+    return{
+        id: Dbdata.dataValues.id,
+
+        title: Dbdata.dataValues.title,
+    
+        summary: Dbdata.dataValues.summary,
+    
+        spoonacularScore: Dbdata.dataValues.spoonacularScore,
+    
+        healthScore: Dbdata.dataValues.healthScore,
+    
+        steps: Dbdata.dataValues.steps,
+    
+        diets: dietsArray,
+
+        image: Dbdata.dataValues.image,
+            
+    }
+};
+
+
 //Funcion utilizada para normalizar los datos desde la API
 
 normalizeApi = (apiResponse)=>{
-    //console.log(apiResponse)
+    console.log(apiResponse)
     return {
-        name: apiResponse.data.title,
+        title: apiResponse.data.title,
 
         image: apiResponse.data.image,
 
         diets: apiResponse.data.diets,
 
-        plate_resume: apiResponse.data.summary,
+        summary: apiResponse.data.summary,
 
-        punctuation: apiResponse.data.spoonacularScore,
+        spoonacularScore: apiResponse.data.spoonacularScore,
 
         steps: apiResponse.data.instructions,
 
-        healty_level: apiResponse.data.healthScore,
+        healthScore: apiResponse.data.healthScore,
 
     }
 
@@ -95,4 +126,4 @@ normalizeTypes = (Typesarr) =>{
 }
 
 
-module.exports = {normalizeDb,normalizeApi,normalizeApiList,normalizeTypes};
+module.exports = {normalizeDb,normalizeApi,normalizeApiList,normalizeTypes,normalizeDbCreated};

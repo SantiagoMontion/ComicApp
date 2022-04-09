@@ -39,3 +39,16 @@
   }
   
 .pagination button:hover:not(.active) {background-color: #ddd;}
+
+
+@media (max-width: 700px){
+  .PagButton {
+    padding: 3px 7px ;
+    text-decoration: none;
+    font-size: 17px;
+    
+  }
+
+
+  
+}

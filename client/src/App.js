@@ -12,6 +12,7 @@ function App() {
       <Route exact path='/new-recipe' component={NewRecipe}/>
       <Route exact path='/home' component={Home}/>
       <Route exact path='/recipes/:id' component={RecipeDetail}/>
+      <Route exact path='/recipes' component={Home}/>
 
     </div>
   )

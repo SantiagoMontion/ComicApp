@@ -17,16 +17,16 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
 
-    plate_resume: {
+    summary: {
       type: DataTypes.STRING,
       allowNull:false,
     },
 
-    punctuation: {
+    spoonacularScore: {
       type: DataTypes.INTEGER, 
     },
 
-    healty_level: {
+    healthScore: {
       type: DataTypes.INTEGER,
     },
 

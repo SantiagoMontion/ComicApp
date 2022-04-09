@@ -3,35 +3,41 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 const { Recipe, Type } = require("../db");
 const axios = require("axios");
-const {normalizeDb,normalizeApi,normalizeApiList,normalizeTypes} = require('./utils.js');
+const {normalizeDb,normalizeApi,normalizeApiList,normalizeTypes,normalizeDbCreated} = require('./utils.js');
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 router.get('/recipes', async(req,res)=>{
-    const {name} = req.query;
+    const {query} = req.query;
     try{
         //BUSCAMOS DENTRO DE NUESTRA BASE DE DATOS.
-        if (name){
-            const lower_name = name.trim().toLowerCase();  //En minusculas, porque asi esta guardado en db
+        if (query){
+            const lower_name = query.trim();
             const recipe_db_name = await Recipe.findOne({
-                WHERE: {name: lower_name},
+                WHERE: {title: lower_name},
                 include: Type,
             });
-            c
-            if (recipe_db_name){
+            
+            if (recipe_db_name !== null){
                 return res.json(normalizeDb(recipe_db_name))
             }
             
-            else{
+        else{
+            const lower_name = query.trim();
+            
                 //EN CASO DE NO ENCONTRARLA BUSCAMOS EN LA API
-                const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&apiKey=ca281e701dcd40a48d46298cfb710a26`);
-                return res.json(normalizeApiList(apiResponse)) 
+            const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${lower_name}&apiKey=3784e61aeabb4b59af95f94ec4bd08a3`);
+            
+            
+            
+            return res.json(normalizeApiList(apiResponse).results)
             }
+
         }
         else{    //EN CASO DE NO EXISTIR EL QUERY PARAM 
             //Llamamos a la Api
-            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=ca281e701dcd40a48d46298cfb710a26");
+            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=3784e61aeabb4b59af95f94ec4bd08a3");
             
             var array = normalizeApiList(apiCallResp).results;
             //Llamamos a la DB
@@ -50,9 +56,11 @@ router.get('/recipes', async(req,res)=>{
             
             const totalrecipes = array.concat(normalizeDb(dataDB));
             
-            return res.json(totalrecipes);
+            return res.status(200).json(totalrecipes);
             }
-            else{return res.json(array)}
+            else{
+                return res.status(200).json(array)
+            }
             
         
           
@@ -64,20 +72,22 @@ router.get('/recipes', async(req,res)=>{
 })
 
 
-router.get('/recipes/:idReceta',async(req, res)=>{
+router.get('/recipes/:idReceta',async(req, res)=>{  
     const {idReceta} = req.params;
+    
     try{
-        const recipe_by_id = await Recipe.findByPk(idReceta,{include: Type})
-
-        if (!recipe_by_id){
-            res.status(400).json("ERROR Recipe id not found " + error)
+        const recipe_by_id = await Recipe.findByPk(idReceta, { include: Type });
+            
+        
+        if (recipe_by_id === null){
+            res.status(400).json("ERROR Recipe id not found ")
         }
-        return res.json(normalizeDb(recipe_by_id))
+        return res.json(normalizeDbCreated(recipe_by_id))
 
     }
     catch{
         try{
-            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=ca281e701dcd40a48d46298cfb710a26`)
+            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=3784e61aeabb4b59af95f94ec4bd08a3`)
             return res.json(normalizeApi(apiCall))
         }   
         catch(error){
@@ -90,7 +100,7 @@ router.get('/recipes/:idReceta',async(req, res)=>{
 router.get('/types',async(req,res)=>{//FALTA TOMAR DATOS DE LA API Y AGREGARLAS Y CONCATENARLAS
     try{
 
-        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=ca281e701dcd40a48d46298cfb710a26");
+        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=3784e61aeabb4b59af95f94ec4bd08a3");
             
         var arrayApi = normalizeApiList(apiCallResp).results;
         var allApidiets = []
@@ -104,7 +114,7 @@ router.get('/types',async(req,res)=>{//FALTA TOMAR DATOS DE LA API Y AGREGARLAS 
         })
         
         
-        var array =["gluten free","ketogenic","vegetarian","lacto-vegetarian","ovo-vegetarian","vegan","pescetarian","paleo","primal","low FODMAP","whole30"]
+        var array =["gluten free","ketogenic","vegetarian","lacto-vegetarian","ovo-vegetarian","vegan","pescetarian","paleo","primal","low FODMAP","whole 30"]
         concated = array.concat(allApidiets)
 
         var arrayDbAndApi= [...new Set(concated)]
@@ -130,37 +140,38 @@ router.get('/types',async(req,res)=>{//FALTA TOMAR DATOS DE LA API Y AGREGARLAS 
 router.post('/recipe',async(req,res)=>{
     try{
         
-        let {title, resume, punctuation, healty_level, steps , types} = req.body;
+        let {title, summary, spoonacularScore, healthScore, steps , diets ,image} = req.body;
 
-        if (!title || !resume)return res.status(400).send('Error, missing necessary parameters');
+        if (!title || !summary)return res.status(400).send('Error, missing necessary parameters');
     
-        const lower_name = title.toLowerCase();  //En minusculas, porque asi esta guardado en db
+        const lower_name = title.trim();  
 
+        var dietsArray= [...new Set(diets)]
         
         const createdRecipe = await Recipe.create({
             title: lower_name,
-            plate_resume: resume,
-            punctuation,
-            healty_level,
+            summary,
+            spoonacularScore,
+            healthScore,
             steps,
-            types,
+            image,
+            diets:dietsArray,
         })
         
         const typeDbArr = await Type.findAll({
-            where: { name: types },
+            where: { name: dietsArray },
         });
         
         const typeDbId = typeDbArr?.map((p) => p.dataValues.id);
-        
-        await createdRecipe.addType(typeDbId);
 
+        await createdRecipe.addType(typeDbId);
+        
         const newRecipe = await Recipe.findOne({
-            where: { title: title },
+            where: { title: lower_name },
             include: Type,
         });
-
-        const newRecipeNormalized = normalizeDb(newRecipe);
-        return res.json(newRecipeNormalized);
+        
+        return res.json(normalizeDbCreated(newRecipe));
 
     }
     catch(error){

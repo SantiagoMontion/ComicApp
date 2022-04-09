@@ -24,14 +24,14 @@
 }
 
 .img-container{
-    margin-top: 10px;
     width: 100%;
-    
 }
 
 .img-container img{
     border-radius: 10px;
-    
+    width: 350px;
+    height: 290px;
+ 
 }
 
 

@@ -20,18 +20,17 @@ function NewRecipe() {
 
     const [input, setInput] = useState({
         title: '',
-        resume: '',
-        punctuation: '',
-        healty_level: '',
+        summary: '',
+        spoonacularScore: '',
+        healthScore: '',
         steps:'',
-        types:[],
+        diets:[],
         image:'',
       });
 
     const [errors, setErrors] = useState({}); //Estado para manejar los errores
 
     const handleInputChange = function(e) {
-        e.preventDefault()
         setErrors(validate({
           ...input,
           [e.target.name]: e.target.value
@@ -50,9 +49,10 @@ function NewRecipe() {
           setInput((prevState) => {
             return {
               ...prevState,
-              types: [...prevState.types, e.target.value],
+              diets: [...prevState.diets, e.target.value],
             };
           });
+         
         }
       };
 
@@ -60,10 +60,10 @@ function NewRecipe() {
       if (
         input.title.length > 3 &&
         input.title.length <= 25 &&
-        input.types.length >= 1 &&
-        !errors.hasOwnProperty("resume") &&
-        !errors.hasOwnProperty("punctuation") &&
-        !errors.hasOwnProperty("healty_level") &&
+        input.diets.length >= 1 &&
+        !errors.hasOwnProperty("summary") &&
+        !errors.hasOwnProperty("spoonacularScore") &&
+        !errors.hasOwnProperty("healthScore") &&
         !errors.hasOwnProperty("steps")
        ) {
         setDisabled(false);
@@ -77,27 +77,29 @@ function NewRecipe() {
 
     const handleOnSubmit = (e) => {
       e.preventDefault();
-      
+     
       setInput((prevState) => {
-        return { ...prevState, types: input.types };
+        return { ...prevState, diets: input.diets };
       });
       
       if (input.image.length === 0){
-        input.image = "https://www.recetasderechupete.com/wp-content/uploads/2021/08/Croquetas-de-brocoli-y-queso-768x530.jpg"
+        input.image = "https://media.istockphoto.com/vectors/recipe-book-hand-drawn-cover-vector-illustration-vector-id1185879263?k=20&m=1185879263&s=612x612&w=0&h=Qiw3sY0LiWG4IIKcKQI9fAwAxR81xLmbhRpYpgt3S8I=";
       }
       
     
       dispatch(saveNewRecipe(input));
         setInput({
           title: '',
-          resume: '',
-          punctuation: '',
-          healty_level: '',
+          summary: '',
+          spoonacularScore: '',
+          healthScore: '',
           steps:'',
-          types:'',
-          image:''
+          diets:[],
+          image:'',
       });
-      
+      setTimeout(function() {
+        alert("Form sent successfully.")
+      }, 1000);
       
     }
     
@@ -139,8 +141,8 @@ function NewRecipe() {
         <label>Plate resume</label>
         
         <div className='Input'>
-        <input className={errors.resume && 'danger'} placeholder='plate resume...' type="text" name="resume" onChange={handleInputChange} value={input.plate_resume} />
-        <div className="danger"><label>{errors.resume}</label></div>
+        <input className={errors.summary && 'danger'} placeholder='plate resume...' type="text" name="summary" onChange={handleInputChange} value={input.summary} />
+        <div className="danger"><label>{errors.summary}</label></div>
         </div>
         </div>
         
@@ -149,8 +151,8 @@ function NewRecipe() {
         <label>Plate Punctuation</label>
         
         <div className='Input'>
-        <input className={errors.punctuation && 'danger'} placeholder='plate punctuation...' type="text" name="punctuation" onChange={handleInputChange} value={input.punctuation} />
-        <div className="danger"><label>{errors.punctuation}</label></div>
+        <input className={errors.spoonacularScore && 'danger'} placeholder='plate punctuation...' type="text" name="spoonacularScore" onChange={handleInputChange} value={input.spoonacularScore} />
+        <div className="danger"><label>{errors.spoonacularScore}</label></div>
         </div>
         </div>
 
@@ -158,8 +160,8 @@ function NewRecipe() {
         <label>Healty level</label>
         
         <div className='Input'>
-        <input className={errors.healty_level && 'danger'} placeholder='recipe healty level...' type="text" name="healty_level" onChange={handleInputChange} value={input.healty_level} />
-        <div className="danger"><label>{errors.healty_level}</label></div>
+        <input className={errors.healthScore && 'danger'} placeholder='recipe healty level...' type="text" name="healthScore" onChange={handleInputChange} value={input.healthScore} />
+        <div className="danger"><label>{errors.healthScore}</label></div>
         </div>
         </div>
 
@@ -180,19 +182,19 @@ function NewRecipe() {
           
           return(
             <div className="types-form">
-            <input className={errors.types && 'danger'} onChange={handleCheckbox} value={t} name="types" type="checkbox" ></input>
+            <input className={errors.diets && 'danger'} onChange={handleCheckbox} value={t} name="diets" type="checkbox" ></input>
             <label>{t}</label>
           </div>
           )
         })}
-        <div className="danger">{errors.types}</div>
+        <div className="danger">{errors.diets}</div>
         
 
 
         </div>
         <div className='submitContainer'>
         <div className='submit'>
-        <button disabled={disabled} onClick={handleOnSubmit}>Submit Recipe</button>
+        <button disabled={disabled}>Submit Recipe</button>
         </div>
         </div>
        

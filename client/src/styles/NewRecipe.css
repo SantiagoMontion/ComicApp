@@ -84,6 +84,14 @@ input.danger{
     color: rgb(255, 255, 255);
 }
 
+.submit button:disabled,
+    button[disabled]{
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
+      }
+
+
 .types-form{
     display: flex;
     justify-content: center;
@@ -101,4 +109,15 @@ input.danger{
 
 .typesh3{
     width: 100%;
+}
+
+
+@media (max-width: 700px){
+    .FormContain{
+        
+        height: 1300px;
+        margin-top: 50px;
+        
+    }
+    
 }
