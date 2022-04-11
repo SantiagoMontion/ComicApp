@@ -27,7 +27,7 @@ router.get('/recipes', async(req,res)=>{
             const lower_name = query.trim();
             
                 //EN CASO DE NO ENCONTRARLA BUSCAMOS EN LA API
-            const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${lower_name}&apiKey=1e54366ddc394cb4a30bc410c943f137`);
+            const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${lower_name}&apiKey=85bd47b6d21040a2b1769c7a0516344b`);
             
             
             
@@ -37,7 +37,7 @@ router.get('/recipes', async(req,res)=>{
         }
         else{    //EN CASO DE NO EXISTIR EL QUERY PARAM 
             //Llamamos a la Api
-            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=1e54366ddc394cb4a30bc410c943f137");
+            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=85bd47b6d21040a2b1769c7a0516344b");
             
             var array = normalizeApiList(apiCallResp).results;
             //Llamamos a la DB
@@ -88,7 +88,7 @@ router.get('/recipes/:idReceta',async(req, res)=>{
     }
     catch{
         try{
-            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=1e54366ddc394cb4a30bc410c943f137`)
+            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=85bd47b6d21040a2b1769c7a0516344b`)
             
             return res.json(normalizeApi(apiCall))
         }   
@@ -102,7 +102,7 @@ router.get('/recipes/:idReceta',async(req, res)=>{
 router.get('/types',async(req,res)=>{
     try{
 
-        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=1e54366ddc394cb4a30bc410c943f137");
+        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=85bd47b6d21040a2b1769c7a0516344b");
             
         var arrayApi = normalizeApiList(apiCallResp).results;
         var allApidiets = []
@@ -116,7 +116,7 @@ router.get('/types',async(req,res)=>{
         })
         
         
-        var array =["gluten free","ketogenic","vegetarian","lacto-vegetarian","ovo-vegetarian","vegan","pescetarian","paleo","primal","low FODMAP","whole 30"]
+        var array =["gluten free","ketogenic","vegetarian","lacto-vegetarian","ovo-vegetarian","vegan","paleo","primal","low FODMAP","whole 30"]
         concated = array.concat(allApidiets)
 
         var arrayDbAndApi= [...new Set(concated)]
