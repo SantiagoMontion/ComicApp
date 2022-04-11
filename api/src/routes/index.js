@@ -27,7 +27,7 @@ router.get('/recipes', async(req,res)=>{
             const lower_name = query.trim();
             
                 //EN CASO DE NO ENCONTRARLA BUSCAMOS EN LA API
-            const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${lower_name}&apiKey=3784e61aeabb4b59af95f94ec4bd08a3`);
+            const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${lower_name}&apiKey=1e54366ddc394cb4a30bc410c943f137`);
             
             
             
@@ -37,7 +37,7 @@ router.get('/recipes', async(req,res)=>{
         }
         else{    //EN CASO DE NO EXISTIR EL QUERY PARAM 
             //Llamamos a la Api
-            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=3784e61aeabb4b59af95f94ec4bd08a3");
+            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=1e54366ddc394cb4a30bc410c943f137");
             
             var array = normalizeApiList(apiCallResp).results;
             //Llamamos a la DB
@@ -82,12 +82,14 @@ router.get('/recipes/:idReceta',async(req, res)=>{
         if (recipe_by_id === null){
             res.status(400).json("ERROR Recipe id not found ")
         }
+        console.log(recipe_by_id)
         return res.json(normalizeDbCreated(recipe_by_id))
 
     }
     catch{
         try{
-            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=3784e61aeabb4b59af95f94ec4bd08a3`)
+            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=1e54366ddc394cb4a30bc410c943f137`)
+            
             return res.json(normalizeApi(apiCall))
         }   
         catch(error){
@@ -97,10 +99,10 @@ router.get('/recipes/:idReceta',async(req, res)=>{
 })  
 
 
-router.get('/types',async(req,res)=>{//FALTA TOMAR DATOS DE LA API Y AGREGARLAS Y CONCATENARLAS
+router.get('/types',async(req,res)=>{
     try{
 
-        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=3784e61aeabb4b59af95f94ec4bd08a3");
+        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=1e54366ddc394cb4a30bc410c943f137");
             
         var arrayApi = normalizeApiList(apiCallResp).results;
         var allApidiets = []
@@ -140,14 +142,15 @@ router.get('/types',async(req,res)=>{//FALTA TOMAR DATOS DE LA API Y AGREGARLAS 
 router.post('/recipe',async(req,res)=>{
     try{
         
-        let {title, summary, spoonacularScore, healthScore, steps , diets ,image} = req.body;
+        let {title, summary, spoonacularScore, healthScore, steps , diets ,image,dishTypes} = req.body;
 
         if (!title || !summary)return res.status(400).send('Error, missing necessary parameters');
     
         const lower_name = title.trim();  
 
         var dietsArray= [...new Set(diets)]
-        
+        var dishArray = [...new Set(dishTypes)]
+
         const createdRecipe = await Recipe.create({
             title: lower_name,
             summary,
@@ -156,6 +159,7 @@ router.post('/recipe',async(req,res)=>{
             steps,
             image,
             diets:dietsArray,
+            dishTypes:dishArray,
         })
         
         const typeDbArr = await Type.findAll({
@@ -165,6 +169,7 @@ router.post('/recipe',async(req,res)=>{
         const typeDbId = typeDbArr?.map((p) => p.dataValues.id);
 
         await createdRecipe.addType(typeDbId);
+
         
         const newRecipe = await Recipe.findOne({
             where: { title: lower_name },

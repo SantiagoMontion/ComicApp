@@ -15,6 +15,7 @@ export  default function validate(input) {  //Funcion para validar y devolver el
     else if (input.summary.length < 10) {
       errors.summary = 'Resume is to short';
     }
+  
 
 
     
@@ -22,8 +23,8 @@ export  default function validate(input) {  //Funcion para validar y devolver el
     if(!parseInt(input.spoonacularScore)){
           errors.spoonacularScore = "Punctuation must be a number"
       }
-      else if (input.spoonacularScore.length > 2) {
-        errors.spoonacularScore = 'Punctuation must have only 2 caracters';
+      if(input.spoonacularScore.length >= 3 && input.spoonacularScore !== '100'){
+        errors.spoonacularScore = 'Punctuation must have only 2 caracters or be 100';
       }
 
 
@@ -31,9 +32,10 @@ export  default function validate(input) {  //Funcion para validar y devolver el
     if(!parseInt(input.healthScore)){
           errors.healthScore = "Healty level must be a number"
       }
-      else if (input.healthScore.length > 2) {
-        errors.healthScore = 'Healty level must have only 2 caracters';
-      }
+      
+      if(input.healthScore.length >= 3 && input.healthScore !== '100'){
+          errors.healthScore = 'Healty level must have only 2 caracters or be 100';
+      
 
 
       if(!input.steps){
@@ -42,6 +44,6 @@ export  default function validate(input) {  //Funcion para validar y devolver el
       else if(input.steps.length <10){
           errors.steps = "Steps is to short"
       } 
-    
+      }
     return errors;
   };

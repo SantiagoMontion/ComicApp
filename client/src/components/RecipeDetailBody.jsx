@@ -3,17 +3,14 @@ import  "../styles/recipeDetailBody.css";
 import { Link } from "react-router-dom";
 
 function RecipeDetailBody({recipe}) {
-    const {title , summary,image,diets,spoonacularScore,healthScore,steps} = recipe;
+    const {title , summary,image,diets,spoonacularScore,healthScore,steps,dishTypes} = recipe;
     
     var resume = document.createElement( 'html' )
     
     resume.innerHTML = summary;
 
-
-
     var step = document.createElement('html')
     step.innerHTML = steps;
-    
     return (
         
         <div className="recipeDetailBody">
@@ -39,12 +36,31 @@ function RecipeDetailBody({recipe}) {
             </div>
             
             </div>
+            <div className="dishTypeContainer">
+            <h2>Dish information</h2>
+            </div>
+
+
+            <div>
+            <h2>Type of Dish</h2>
+            
+            <div className="dishTypelist">
+            {dishTypes?.map(t=>{
+                return(<h2 className="Dietsdetail">{t}</h2>)
+            })}
+            
+
+            </div>
+            </div>
+
+            <div className="dietspan">
+            <h2>Diet List</h2>
             <div className="dietscontainer">
             {diets?.map(d=>{
-                return (<h2 className="Dietsdetail">{d}</h2>)
+                return (<h3 className="Dietsdetail">{d}</h3>)
             })}
             </div>
-            
+            </div>
 
             <div className="LevelsContainer">
             <h2 className="Puntuactionh2">spoonacularScore</h2>

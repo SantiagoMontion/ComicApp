@@ -26,6 +26,7 @@ function NewRecipe() {
         steps:'',
         diets:[],
         image:'',
+        dishTypes:'',
       });
 
     const [errors, setErrors] = useState({}); //Estado para manejar los errores
@@ -86,7 +87,23 @@ function NewRecipe() {
         input.image = "https://media.istockphoto.com/vectors/recipe-book-hand-drawn-cover-vector-illustration-vector-id1185879263?k=20&m=1185879263&s=612x612&w=0&h=Qiw3sY0LiWG4IIKcKQI9fAwAxR81xLmbhRpYpgt3S8I=";
       }
       
-    
+       
+      
+      if(input.dishTypes){
+        var sep = input.dishTypes.split(",")
+        var array =[]
+        for (let i=0; i<sep.length;i++){
+         array.push(sep[i])
+        }
+      }
+
+      if(!array.length){
+        input.dishTypes= "No dish type defined"
+      }
+      else{
+        input.dishTypes = array
+      }
+      
       dispatch(saveNewRecipe(input));
         setInput({
           title: '',
@@ -96,6 +113,7 @@ function NewRecipe() {
           steps:'',
           diets:[],
           image:'',
+          dishTypes:'',
       });
       setTimeout(function() {
         alert("Form sent successfully.")
@@ -132,7 +150,7 @@ function NewRecipe() {
           <label>Title</label>
           
           <div className='Input'>
-         <input className={errors.title && 'danger'} placeholder='recipe title...' type="text" name="title" onChange={handleInputChange} value={input.title} />
+         <input className={errors.title && 'danger'} placeholder='recipe title...' type="text" name="title" onChange={handleInputChange} />
          <div className="danger"><label>{errors.title}</label></div>
         </div>
         </div>
@@ -141,7 +159,7 @@ function NewRecipe() {
         <label>Plate resume</label>
         
         <div className='Input'>
-        <input className={errors.summary && 'danger'} placeholder='plate resume...' type="text" name="summary" onChange={handleInputChange} value={input.summary} />
+        <input className={errors.summary && 'danger'} placeholder='plate resume...' type="text" name="summary" onChange={handleInputChange}  />
         <div className="danger"><label>{errors.summary}</label></div>
         </div>
         </div>
@@ -165,16 +183,37 @@ function NewRecipe() {
         </div>
         </div>
 
-        <div className="Stepscontain">
+        
         <div className='InputContain'>
         <label>Step by step</label>
         
         <div className='Input'>
-        <input className={errors.steps && 'danger'} placeholder='recipe steps...' type="text" name="steps" onChange={handleInputChange} value={input.steps} />
+        <input className={errors.steps && 'danger'} placeholder='recipe steps...' type="text" name="steps" onChange={handleInputChange} />
         <div className="danger"><label>{errors.steps}</label></div>
         </div>
         </div>
+       
+     
+
+        <div className='InputContain'>
+        <label>Image</label>
+        <div className='Input'>
+        <input className={errors.image && 'danger'} placeholder='image link...' type="text" name="image" onChange={handleInputChange} value={input.image} />
+        <div className="danger"><label>{errors.image}</label></div>
         </div>
+        </div>
+        
+
+        <div className='InputContain'>
+        <label>Dish Types</label>
+        <div className='Input'>
+        <input className={errors.dishTypes && 'danger'} placeholder='dishTypes (separated with comas)' type="text" name="dishTypes" onChange={handleInputChange} value={input.dishTypes} />
+        <div className="danger"><label>{errors.dishTypes}</label></div>
+        </div>
+       
+        </div>
+
+
         <div className="typesh3">
         <h3>Select all the diets types of your recipe</h3>
         </div>

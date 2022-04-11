@@ -46,7 +46,6 @@
 .dietsList:hover{
     background-color: transparent;
     background-color: rgba(0, 0, 0, 0.247);
-    
     transform: scale(1.05);
 }
 

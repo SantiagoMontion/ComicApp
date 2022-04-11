@@ -23,7 +23,9 @@ normalizeDb = (recipe_db)=>{
     
             diets: dietsArray,
 
-            image: recipe_db[i].dataValues.image
+            image: recipe_db[i].dataValues.image,
+
+            dishTypes:recipe_db[i].dataValues.dishTypes,
             
         }
 
@@ -38,7 +40,6 @@ normalizeDbCreated = (Dbdata) =>{
             
         dietsArray.push(d.dataValues.name)
     })
-    
     return{
         id: Dbdata.dataValues.id,
 
@@ -55,6 +56,8 @@ normalizeDbCreated = (Dbdata) =>{
         diets: dietsArray,
 
         image: Dbdata.dataValues.image,
+
+        dishTypes: Dbdata.dataValues.dishTypes,
             
     }
 };
@@ -63,7 +66,7 @@ normalizeDbCreated = (Dbdata) =>{
 //Funcion utilizada para normalizar los datos desde la API
 
 normalizeApi = (apiResponse)=>{
-    console.log(apiResponse)
+    
     return {
         title: apiResponse.data.title,
 
@@ -78,6 +81,8 @@ normalizeApi = (apiResponse)=>{
         steps: apiResponse.data.instructions,
 
         healthScore: apiResponse.data.healthScore,
+
+        dishTypes: apiResponse.data.dishTypes,
 
     }
 

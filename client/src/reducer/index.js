@@ -7,7 +7,7 @@ const initialState = {
     recipeDetail: {}, //detalles de la receta
     typesLoaded:[], //todos los tipos de dietas
     filtered:[], //contiene las recipes filtradas
-    filteredbyquery:[],
+    loader:true, 
   };
 
 
@@ -21,6 +21,7 @@ function rootReducer(state = initialState, action) {
               recipeDetail: action.payload,
               allRecipes: action.payload,
               filtered: action.payload,
+              loader:false
             };
           }
 
@@ -174,10 +175,30 @@ function rootReducer(state = initialState, action) {
           }
         }
 
+
+
+
+        case actionTypes.LOADER_TRUE: {
+          return {
+            ...state,
+            loader: true,
+          };
+        }
+    
+        case actionTypes.LOADER_FALSE: {
+          return {
+            ...state,
+            loader: false,
+          };
+        }
+
+
+
         default:
             return { ...state };
         }
-      
+
+
     
 }
 

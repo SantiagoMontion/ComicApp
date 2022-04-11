@@ -17,6 +17,7 @@ function HomeBody({items,handleFilter,lastItemIndex,firstItemIndex}) {
       <div className="recipe_grid">
 
         {items?.slice(firstItemIndex, lastItemIndex).map(recipe=>{
+          
           const link= "/recipes/" + `${recipe.id}`
           {if(recipe.title){
           return(

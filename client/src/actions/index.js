@@ -14,7 +14,9 @@ export const actionTypes = {
     SORT_SEARCHBAR: "SORT_SEARCHBAR",
     POST_RECIPE: "POST_RECIPE",
     GET_RECIPE_BY_QUERY: "GET_RECIPE_BY_QUERY",
-    GET_BY_QUERY: "GET_BY_QUERY"
+    GET_BY_QUERY: "GET_BY_QUERY",
+    LOADER_TRUE: "LOADER_TRUE",
+    LOADER_FALSE:"LOADER_FALSE"
   };
 
 
@@ -127,3 +129,15 @@ export function saveNewRecipe(recipe){ //debe llegar como un objeto
     }
 
 
+
+    export function setLoaderTrue() {
+      return {
+        type: actionTypes.LOADER_TRUE,
+      };
+    }
+    
+    export function setLoaderFalse() {
+      return {
+        type: actionTypes.LOADER_FALSE,
+      };
+    }

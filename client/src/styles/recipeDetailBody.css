@@ -13,7 +13,7 @@
 .infoContainer{
     margin-top: 40px;
     display: flex;
-    
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -44,6 +44,10 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+}
+
+.dietscontainer h3{
+    font-size: 24px;
 }
 
 .Dietsdetail{
@@ -123,6 +127,37 @@
     filter: invert(100%);
     
 }
+
+.dishTypeContainer{
+    
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #0f0f0f;
+    color: white;
+    margin-top: 25px;
+}
+
+
+.dishTypelist{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    
+}
+
+.dietspan{
+    width: 100%;
+    
+    margin-top: 10px;
+}
+
+
+
 
 
 @media (max-width: 700px){

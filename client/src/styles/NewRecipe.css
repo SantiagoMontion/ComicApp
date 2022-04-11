@@ -2,7 +2,7 @@
     background-color: #0f0f0f0e;
     color: rgb(0, 0, 0);
     width: 800px;
-    height: 900px;
+    height: 1000px;
     margin-top: 20px;
     box-shadow: 2px 2px 10px black;
     padding: 25px;
@@ -115,7 +115,7 @@ input.danger{
 @media (max-width: 700px){
     .FormContain{
         
-        height: 1300px;
+        height: 1550px;
         margin-top: 50px;
         
     }

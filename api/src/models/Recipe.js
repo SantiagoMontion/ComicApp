@@ -36,7 +36,11 @@ module.exports = (sequelize) => {
 
     image:{
       type:DataTypes.STRING
+    },
+    dishTypes:{
+      type:DataTypes.ARRAY(DataTypes.STRING)
     }
+
   });
 
 
