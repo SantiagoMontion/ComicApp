@@ -37,9 +37,10 @@ function NavBar({recipes,handleSearch,handleQuery}) {
   }
 
 
+
   return (
     <div>
-    <div className='nav_container'>
+    <div className='nav_container' id="myTopnav">
       
       <Link to="/home">
       <div className="nav_logo">
@@ -58,7 +59,7 @@ function NavBar({recipes,handleSearch,handleQuery}) {
 
       <input type="text"  onChange={handleChange} value={state} placeholder="   Buscar..."></input>
       
-      <button onClick={handleSearchClick} >Search</button>
+      <button onClick={handleSearchClick} >Search</button> 
    
       </div>
       <div className="CreateRecipe">
