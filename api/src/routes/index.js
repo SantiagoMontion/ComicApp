@@ -11,7 +11,7 @@ const router = Router();
 
 
 router.get('/'), async(req,res)=>{
-    return 0;
+    return req;
 
 }
 
