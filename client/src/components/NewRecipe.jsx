@@ -13,6 +13,8 @@ function NewRecipe() {
     const types = useSelector((state)=> state.typesLoaded)  //funcion para mostrar todos los tipos de dieta
     const dispatch = useDispatch();
     const [disabled, setDisabled] = useState(true); //Habilitador del botón submit cuando no haya ningun error en el formulario
+    
+   
     useEffect(()=>{
       dispatch(getTypes())
     },[])
@@ -45,7 +47,6 @@ function NewRecipe() {
 
 
       const handleCheckbox = (e) => {
-        
         if (e.target.checked) {
           setInput((prevState) => {
             return {
@@ -91,18 +92,18 @@ function NewRecipe() {
       
       if(input.dishTypes){
         var sep = input.dishTypes.split(",")
+        if(sep){
         var array =[]
         for (let i=0; i<sep.length;i++){
          array.push(sep[i])
         }
       }
-
-      if(!array.length){
-        input.dishTypes= "No dish type defined"
       }
       else{
-        input.dishTypes = array
+        input.dishTypes= ["No dish type defined"]
       }
+
+      
       
       dispatch(saveNewRecipe(input));
         setInput({
@@ -115,10 +116,13 @@ function NewRecipe() {
           image:'',
           dishTypes:'',
       });
+      
       setTimeout(function() {
         alert("Form sent successfully.")
+        
       }, 1000);
-      
+
+
     }
     
 
@@ -188,7 +192,7 @@ function NewRecipe() {
         <label>Step by step</label>
         
         <div className='Input'>
-        <input className={errors.steps && 'danger'} placeholder='recipe steps...' type="text" name="steps" onChange={handleInputChange} />
+        <input className={errors.steps && 'danger'} placeholder='recipe steps...' type="text" name="steps" onChange={handleInputChange}/>
         <div className="danger"><label>{errors.steps}</label></div>
         </div>
         </div>

@@ -2,7 +2,7 @@ import HomeBody from "./HomeBody"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import  "../styles/Home.css";
-import {getRecipes, getTypes,filterByType,sortAlpabeticaly,sortPuntuactionaly,sortSearchBar,getRecipesByQuery, setLoaderTrue, setLoaderFalse} from "../actions/index"
+import {getRecipes, getTypes,filterByType,sortAlpabeticaly,sortPuntuactionaly,sortSearchBar,getRecipesByQuery, setLoaderTrue, setLoaderFalse,getRecipesByDish} from "../actions/index"
 import HomeDropMenu from './HomeDropMenu.jsx';
 import NavBar from "./NavBar";
 import Pagination, { objIndexPagination } from "./Pagination";
@@ -74,10 +74,17 @@ function Home() {
   const handlePagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  
   const { lastItemIndex, firstItemIndex } = objIndexPagination(
     currentPage,
     quantityXPage
   );
+
+  const handSortDish =(type)=>{
+    dispatch(getRecipesByDish(type))
+    setOrder(type);
+    setCurrentPage(1)
+  }
 
 
 
@@ -113,7 +120,7 @@ function Home() {
         {!spinnerLoader ? (
         <div className="DropsMenus">
             
-          <HomeDropMenu types={types} handleFilter={handleTypeFilter} handleSortAlph={handleSortAlph} handleSortPunt={handleSortPunt} ></HomeDropMenu>
+          <HomeDropMenu types={types} handleFilter={handleTypeFilter} handleSortAlph={handleSortAlph} handleSortPunt={handleSortPunt} handSortDish={handSortDish} ></HomeDropMenu>
         </div>
 
 

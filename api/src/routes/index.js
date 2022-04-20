@@ -8,18 +8,26 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
+
+
+router.get('/'), async(req,res)=>{
+    return 0;
+
+}
+
 router.get('/recipes', async(req,res)=>{
     const {query} = req.query;
     try{
         //BUSCAMOS DENTRO DE NUESTRA BASE DE DATOS.
         if (query){
             const lower_name = query.trim();
+            
             const recipe_db_name = await Recipe.findOne({
-                WHERE: {title: lower_name},
+                WHERE: {title:lower_name},
                 include: Type,
             });
-            
-            if (recipe_db_name !== null){
+            console.log("NAME",recipe_db_name)
+            if (recipe_db_name === null){
                 return res.json(normalizeDb(recipe_db_name))
             }
             
@@ -27,8 +35,7 @@ router.get('/recipes', async(req,res)=>{
             const lower_name = query.trim();
             
                 //EN CASO DE NO ENCONTRARLA BUSCAMOS EN LA API
-            const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${lower_name}&apiKey=85bd47b6d21040a2b1769c7a0516344b`);
-            
+            const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${lower_name}&apiKey=a196c1be059c455593f593aa688e5293`);
             
             
             return res.json(normalizeApiList(apiResponse).results)
@@ -37,7 +44,7 @@ router.get('/recipes', async(req,res)=>{
         }
         else{    //EN CASO DE NO EXISTIR EL QUERY PARAM 
             //Llamamos a la Api
-            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=85bd47b6d21040a2b1769c7a0516344b");
+            const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=a196c1be059c455593f593aa688e5293");
             
             var array = normalizeApiList(apiCallResp).results;
             //Llamamos a la DB
@@ -49,12 +56,13 @@ router.get('/recipes', async(req,res)=>{
                 },
            
                });
+            const NormDBArray = normalizeDb(dataDB)
             
-
-            if(normalizeDb(dataDB)){
+            if(NormDBArray){
             //   //Concatenamos las recipes de DB y API
             
-            const totalrecipes = array.concat(normalizeDb(dataDB));
+            const totalrecipes = [...array, ...NormDBArray]
+
             
             return res.status(200).json(totalrecipes);
             }
@@ -82,13 +90,13 @@ router.get('/recipes/:idReceta',async(req, res)=>{
         if (recipe_by_id === null){
             res.status(400).json("ERROR Recipe id not found ")
         }
-        console.log(recipe_by_id)
+        
         return res.json(normalizeDbCreated(recipe_by_id))
 
     }
     catch{
         try{
-            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=85bd47b6d21040a2b1769c7a0516344b`)
+            const apiCall = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?&apiKey=a196c1be059c455593f593aa688e5293`)
             
             return res.json(normalizeApi(apiCall))
         }   
@@ -102,7 +110,7 @@ router.get('/recipes/:idReceta',async(req, res)=>{
 router.get('/types',async(req,res)=>{
     try{
 
-        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=85bd47b6d21040a2b1769c7a0516344b");
+        const apiCallResp = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=a196c1be059c455593f593aa688e5293");
             
         var arrayApi = normalizeApiList(apiCallResp).results;
         var allApidiets = []
@@ -183,4 +191,9 @@ router.post('/recipe',async(req,res)=>{
          return res.status(404).json("Error, " + error);
     }
 })
+
+
+
+
+
 module.exports = router;

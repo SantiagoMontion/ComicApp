@@ -49,6 +49,8 @@ function HomeBody({items,handleFilter,lastItemIndex,firstItemIndex}) {
                         </Link> 
                         )
                     })}
+
+                      
                     
                     </div>
                     

@@ -193,7 +193,37 @@ function rootReducer(state = initialState, action) {
         }
 
 
+        case actionTypes.FILTER_RECIPES_BY_DISH:{
+          console.log(action.payload)
+          if (action.payload === "dinner") {
 
+            let recipesFiltered = state.allRecipes?.filter((recipe) => {
+              if(recipe.dishTypes){
+                return recipe.dishTypes.includes(action.payload);
+              }
+            });
+            return {
+              ...state,
+              recipesLoaded: recipesFiltered,
+              filtered: recipesFiltered,
+            };
+            }
+
+            else if (action.payload === "breakfast") {
+
+              let recipesFiltered = state.allRecipes?.filter((recipe) => {
+                if(recipe.dishTypes){
+                  return recipe.dishTypes.includes(action.payload);
+                }
+              });
+              return {
+                ...state,
+                recipesLoaded: recipesFiltered,
+                filtered: recipesFiltered,
+              };
+            }
+          }
+        
         default:
             return { ...state };
         }

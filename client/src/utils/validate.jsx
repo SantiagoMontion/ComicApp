@@ -35,7 +35,7 @@ export  default function validate(input) {  //Funcion para validar y devolver el
       
       if(input.healthScore.length >= 3 && input.healthScore !== '100'){
           errors.healthScore = 'Healty level must have only 2 caracters or be 100';
-      
+      }
 
 
       if(!input.steps){
@@ -44,6 +44,6 @@ export  default function validate(input) {  //Funcion para validar y devolver el
       else if(input.steps.length <10){
           errors.steps = "Steps is to short"
       } 
-      }
+      
     return errors;
   };

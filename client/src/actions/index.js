@@ -16,7 +16,9 @@ export const actionTypes = {
     GET_RECIPE_BY_QUERY: "GET_RECIPE_BY_QUERY",
     GET_BY_QUERY: "GET_BY_QUERY",
     LOADER_TRUE: "LOADER_TRUE",
-    LOADER_FALSE:"LOADER_FALSE"
+    LOADER_FALSE:"LOADER_FALSE",
+    DELETE_RECIPE:"DELETE_RECIPE",
+    FILTER_RECIPES_BY_DISH: "FILTER_RECIPES_BY_DISH"
   };
 
 
@@ -141,3 +143,12 @@ export function saveNewRecipe(recipe){ //debe llegar como un objeto
         type: actionTypes.LOADER_FALSE,
       };
     }
+
+    export function getRecipesByDish(type){
+      return {
+        type: actionTypes.FILTER_RECIPES_BY_DISH,
+        payload: type,
+      };
+    }
+
+

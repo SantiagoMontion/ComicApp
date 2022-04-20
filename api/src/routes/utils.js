@@ -1,35 +1,44 @@
 //Funcion utilizada para normalizar la info de la DB
 //Retornando un objeto con las propiedades que necesito
+
+
+
+
+
 normalizeDb = (recipe_db)=>{
     let dietsArray= []
-
+    let array= []
     for (let i=0; i<recipe_db.length;i++){
         recipe_db[i].dataValues.types?.map((d)=>{
             
             dietsArray.push(d.dataValues.name)
         })
-        return{
-            id: recipe_db[i].dataValues.id,
-            
-            title: recipe_db[i].dataValues.title,
-    
-            summary: recipe_db[i].dataValues.summary,
-    
-            spoonacularScore: recipe_db[i].dataValues.spoonacularScore,
-    
-            healthScore: recipe_db[i].dataValues.healthScore,
-    
-            steps: recipe_db[i].dataValues.steps,
-    
+        array.push({
+            id:recipe_db[i].dataValues.id,
+                
+            title:recipe_db[i].dataValues.title,
+        
+            summary:recipe_db[i].dataValues.summary,
+        
+            spoonacularScore:recipe_db[i].dataValues.spoonacularScore,
+        
+            healthScore:recipe_db[i].dataValues.healthScore,
+        
+            steps:recipe_db[i].dataValues.steps,
+        
             diets: dietsArray,
-
-            image: recipe_db[i].dataValues.image,
-
+    
+            image:recipe_db[i].dataValues.image,
+    
             dishTypes:recipe_db[i].dataValues.dishTypes,
-            
-        }
-
+                
+            })
+        dietsArray= []
     }
+    
+    return array;
+    
+    
 };
 
 
