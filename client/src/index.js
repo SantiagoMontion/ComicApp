@@ -5,17 +5,17 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
-import  store  from "./store/index"
-
+import store from "./store/index";
+import "bootstrap/dist/css/bootstrap.min.css";
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 ReactDOM.render(
   <React.StrictMode>
-      <Provider store={store}>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-      </Provider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

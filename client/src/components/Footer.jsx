@@ -1,40 +1,49 @@
+import "../styles/Footer.css";
+import ProfileFoto from "../styles/img/ProfileFoto.jpg";
+import {  Container, Row, Col } from "react-bootstrap";
 
-import "../styles/Footer.css"
-import GitLogo from '../styles/img/GitLogo.png'
-import LinkedInLogo from '../styles/img/LinkedInLogo.png'
-import Gmail from '../styles/img/Gmail.png'
-import ProfileFoto from '../styles/img/ProfileFoto.png'
+import {AiFillGithub ,AiFillLinkedin , AiFillMail} from "react-icons/ai"
+
 const Footer = () => {
-    return (
-      <div className="footer">
-        <div className="footer-name">
-        <h4>developer</h4>
-
-        <div className="developer-info">
+  return (
+    <Container fluid className="footer">
+      <Row >
+        <Col className="footer-inside">
+          <h5>developer</h5>
+          <h4 style={{color:"white"}}>Santiago Montion</h4>
+          <a
+            className="info"
+            href="https://instagram.com/santimontion"
+            target="_blank"
+          >
+            <img className="logos" src={ProfileFoto}></img>
             
-            <a className='info' href="https://instagram.com/santimontion" target="_blank">
-            <img className="profile-logo" src={ProfileFoto}></img>
-            <h3>Santiago Montion</h3>
-            </a>
-        
-        </div>
-
-        </div>
-        <label className="cname">Contact:</label>
-        <div className="contactInfo">
-          
-          <a href="https://github.com/SantiagoMontion" target="_blank">
-          <img className="img-logos" src={GitLogo}></img>
           </a>
-          <a href="https://www.linkedin.com/in/santi-montion-a84711217/" target="_blank">
-            <img className="img-logos" src={LinkedInLogo}></img>
+          
+        </Col>
+
+        <Col className="footer-inside">
+          <label className="cname">Contact:</label>
+          <Row>
+            <Col>
+          <a href="https://github.com/SantiagoMontion" target="_blank">
+            <AiFillGithub size={40}  color={"white"}  className="logos mt-3"></AiFillGithub>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/santi-montion-a84711217/"
+            target="_blank"
+          >
+            <AiFillLinkedin  size={40} color={"white"} className="logos mt-3"></AiFillLinkedin>
           </a>
           <a href="mailto: santiagomontion@gmail.com">
-              <img className="img-logos" src={Gmail}></img>
+            <AiFillMail size={40} color={"white"} className="logos mt-3"></AiFillMail>
           </a>
-        </div>
-      </div>
-    );
-  };
-  
-  export default Footer;
+          </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default Footer;

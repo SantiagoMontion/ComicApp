@@ -1,154 +1,137 @@
 import axios from "axios";
 
-
-
 export const actionTypes = {
-    GET_RECIPES: "GET_RECIPES",
-    GET_RECIPES_DETAIL: "GET_RECIPES_DETAIL",
-    GET_TYPES: "GET_TYPES",
-    SEARCH_RECIPE: "SEARCH_RECIPE",
-    FILTER_RECIPES_BY_TYPE: "FILTER_RECIPES_BY_TYPE",
-    SORT_RECIPES_ALPHABETICALLY: "SORT_RECIPES_ALPHABETICALLY",
-    SORT_RECIPES_PUNTUACTION: "SORT_RECIPES_PUNTUACTION",
-    GET_RECIPE_BY_ID: "GET_RECIPE_BY_ID",
-    SORT_SEARCHBAR: "SORT_SEARCHBAR",
-    POST_RECIPE: "POST_RECIPE",
-    GET_RECIPE_BY_QUERY: "GET_RECIPE_BY_QUERY",
-    GET_BY_QUERY: "GET_BY_QUERY",
-    LOADER_TRUE: "LOADER_TRUE",
-    LOADER_FALSE:"LOADER_FALSE",
-    DELETE_RECIPE:"DELETE_RECIPE",
-    FILTER_RECIPES_BY_DISH: "FILTER_RECIPES_BY_DISH"
-  };
+  GET_COMICS: "GET_COMICS",
+  GET_COMIC_DETAIL: "GET_COMIC_DETAIL",
+  QUIT_FAVORITE: "QUIT_FAVORITE",
+  SEARCH_BY_QUERY: "SEARCH_BY_QUERY",
+  GET_COMIC_CHARACTERS : "GET_COMIC_CHARACTERS",
+  GET_COMIC_BY_ID: "GET_RECIPE_BY_ID",
+  LOADER_TRUE: "LOADER_TRUE",
+  LOADER_FALSE: "LOADER_FALSE",
+  ADD_FAVORITE: "ADD_FAVORITE",
+  DELETE_COMIC_DATA: "DELETE_COMIC_DATA",
+  GET_COMIC_TEAMS: "GET_COMIC_TEAMS",
+  GET_COMIC_LOCATIONS : "GET_COMIC_LOCATIONS",
 
+};
 
-export function getTypes() {
-    return function (dispatch) {
-      return axios("/types")
-        .then((resp) => {
-          return dispatch({
-            type: actionTypes.GET_TYPES,
-            payload: resp.data });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
-  }
-  
-  export function getRecipes() {
-    return function (dispatch) {
-        
-        return axios("/recipes")
-            .then((response) => {
-            return dispatch({
-                type: actionTypes.GET_RECIPES,
-                payload: response.data,
-          });
-        })
-        .catch((e) => {
-          console.log("ERROR GET RECIPES" + e);
-        });
-    };
-}
-
-export function filterByType(type){
-  return {
-    type: actionTypes.FILTER_RECIPES_BY_TYPE,
-    payload: type,
-  };
-  
-}
-
-export function sortAlpabeticaly(type){
-  return{
-    type: actionTypes.SORT_RECIPES_ALPHABETICALLY,
-    payload: type,
-  };
-}
-
-
-export function sortPuntuactionaly(type){
-  return{
-    type: actionTypes.SORT_RECIPES_PUNTUACTION,
-    payload: type
-  }
-}
-
-
-export function getRecipeById(id){
+export function getComics() {
   return function (dispatch) {
-    return axios(`/recipes/${id}`)
+    return axios("/comics")
+      .then((response) => {
+        return dispatch({
+          type: actionTypes.GET_COMICS,
+          payload: response.data,
+        });
+      })
+      .catch((e) => {
+        console.log("ERROR GET COMICS" + e);
+      });
+  };
+}
+
+export function addFavorite(payload) {
+  return {
+    type: actionTypes.ADD_FAVORITE,
+    payload: payload,
+  };
+}
+
+export function getComicById(id) {
+  return function (dispatch) {
+    return axios(`/comics/${id}`)
       .then((resp) => {
         return dispatch({
-          type: actionTypes.GET_RECIPE_BY_ID,
+          type: actionTypes.GET_COMIC_BY_ID,
           payload: resp.data,
         });
       })
       .catch((e) => {
-        console.log("ERROR GET RECIPES BY ID" + e);
+        console.log("ERROR GET COMIC BY ID" + e);
       });
   };
 }
 
 
-export function sortSearchBar(array){
-  return{
-      type: actionTypes.SORT_SEARCHBAR,
-      payload: array
+export function getComicCharacters (url){
+  return function (dispatch){
+    return axios(`/comic/data/?url=${url}`)
+      .then((resp) => {
+        return dispatch({
+          type: actionTypes.GET_COMIC_CHARACTERS,
+          payload: resp.data,
+        });
+      })
+      .catch((e) => {
+        console.log("ERROR GET COMIC BY ID" + e);
+      });
+    }
   }
-}
+
+  export function getComicTeams (url){
+    return function (dispatch){
+      return axios(`/comic/data/?url=${url}`)
+        .then((resp) => {
+          return dispatch({
+            type: actionTypes.GET_COMIC_TEAMS,
+            payload: resp.data,
+          });
+        })
+        .catch((e) => {
+          console.log("ERROR GET COMIC BY ID" + e);
+        });
+      }
+    }
+
+    export function getComicLocations (url){
+      return function (dispatch){
+        return axios(`/comic/data/?url=${url}`)
+          .then((resp) => {
+            return dispatch({
+              type: actionTypes.GET_COMIC_LOCATIONS,
+              payload: resp.data,
+            });
+          })
+          .catch((e) => {
+            console.log("ERROR GET COMIC BY ID" + e);
+          });
+        }
+      }
 
 
 
-export function saveNewRecipe(recipe){ //debe llegar como un objeto
+
+export function getComicsByQuery(query) {
   return function (dispatch) {
     return axios
-      .post("/recipe", recipe)
+
+      .get(`/search?search=${query}`)
       .then((resp) => {
-        return dispatch({ type: actionTypes.POST_RECIPE, payload: resp });
-        })
-      .catch((e) => {
-        console.log("ROUTE ERROR "+ e);
-      });
-    };
-  }
-
-
-  export function getRecipesByQuery(query){ 
-    return function (dispatch) {
-      return axios
-        
-        .get("/recipes?query=" + query)
-        .then((resp) => {
-          
-          return dispatch({ type: actionTypes.GET_BY_QUERY, payload: resp.data });
-          })
-        .catch((e) => {
-          console.log("QUERY PARAM ERROR "+ e);
+        return dispatch({
+          type: actionTypes.SEARCH_BY_QUERY,
+          payload: resp.data,
         });
-      };
-    }
+      })
+      .catch((e) => {
+        console.log("QUERY PARAM ERROR " + e);
+      });
+  };
+}
 
+export function quitFavorite(id) {
+  return { type: actionTypes.QUIT_FAVORITE, payload: id };
+}
 
+export function setLoaderTrue() {
+  return {
+    type: actionTypes.LOADER_TRUE,
+  };
+}
 
-    export function setLoaderTrue() {
-      return {
-        type: actionTypes.LOADER_TRUE,
-      };
-    }
-    
-    export function setLoaderFalse() {
-      return {
-        type: actionTypes.LOADER_FALSE,
-      };
-    }
-
-    export function getRecipesByDish(type){
-      return {
-        type: actionTypes.FILTER_RECIPES_BY_DISH,
-        payload: type,
-      };
-    }
-
+export function setLoaderFalse() {
+  return {
+    type: actionTypes.LOADER_FALSE,
+  };
+}
 

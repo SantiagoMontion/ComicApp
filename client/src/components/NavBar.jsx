@@ -1,75 +1,82 @@
-import  "../styles/NavBar.css";
-import Logo from "../styles/img/LogoNav.png"
+import "../styles/NavBar.css";
+import Logo from "../styles/img/LogoNav.png";
 import { Link } from "react-router-dom";
-import {useState,useEffect} from "react";
+import { useState, useEffect } from "react";
+import {
+  Nav,
+  Container,
+  Form,
+  FormControl,
+  Button,
+  Navbar,
+} from "react-bootstrap";
 
+import { BiSearch } from "react-icons/bi";
+import Favorites from "./Favorites.jsx";
+import * as Scroll from "react-scroll";
+import useWindowDimensions from "./utils.jsx";
 
-
-function NavBar({recipes,handleSearch,handleQuery}) {
-
-  const [state, setState] = useState("") //funcion para manejar el estado del searchbar
+function NavBar({ handleQuery }) {
+  const [state, setState] = useState(""); //funcion para manejar el estado del searchbar
 
   //funcion para obtener el valor del input
-  const handleChange = e => {
-    
+  const handleChange = (e) => {
     setState(e.target.value);
   };
 
+  const handleSearchClick = (e) => {
+    handleQuery(state);
+  };
 
-  useEffect(() => {
-    if(state ===''){
-      handleSearch("default")
-      return
+  const {  width } = useWindowDimensions();
+
+  const scrollTo = () => {
+    const totalHeight = document.documentElement.scrollHeight
+    console.log(totalHeight);
+
+    if (totalHeight> 3500){
+      Scroll.animateScroll.scrollTo(5200);
     }
-    let results = recipes.filter(r =>{
-    if(r.title){
-      return (r.title.toLowerCase().includes(state))
+
+    if (width < 700) {
+      Scroll.animateScroll.scrollTo(5050);
+    } else if(totalHeight< 3500) {
+      Scroll.animateScroll.scrollTo(2100);
     }
-    });
-    handleSearch(results)
-  }, [state]);
-  
-  
-
-
-  const handleSearchClick= e=>{
-    handleQuery(state)
-  }
-
-
+  };
 
   return (
-    <div>
-    <div className='nav_container' id="myTopnav">
-      
-      <Link to="/home">
-      <div className="nav_logo">
-      <img src={Logo}></img>
-      </div>
+    
+    <Navbar className="fixed-top" bg="light" expand="lg">
+      <Container fluid>
+        <Navbar.Brand href="/">
+          <img className="logo_nav" src={Logo}></img>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "140px" }}>
+            <Nav.Link href="/">Comics</Nav.Link>
 
+            <Nav.Link onClick={scrollTo}>Favorites</Nav.Link>
+          </Nav>
+          <Form className="d-flex">
+            <FormControl
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+              onChange={handleChange}
+              value={state}
+            />
 
-      </Link>
-      <Link to="/home">
-      <div className="Navh2">
-      <h2>Henry Food</h2>
-  
-      </div>
-      </Link>
-      <div className="input_container">
-
-      <input type="text"  onChange={handleChange} value={state} placeholder="   Buscar..."></input>
-      
-      <button onClick={handleSearchClick} >Search</button> 
-   
-      </div>
-      <div className="CreateRecipe">
-        <Link to="/new-recipe">
-        <h2>Create Recipe</h2>
-        </Link>
-      
-      </div>
-    </div>
-    </div>
+            <BiSearch
+              className="btn-search"
+              onClick={handleSearchClick}
+            ></BiSearch>
+          </Form>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
