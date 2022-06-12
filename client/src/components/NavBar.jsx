@@ -28,25 +28,24 @@ function NavBar({ handleQuery }) {
     handleQuery(state);
   };
 
-  const {  width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const scrollTo = () => {
-    const totalHeight = document.documentElement.scrollHeight
+    const totalHeight = document.documentElement.scrollHeight;
     console.log(totalHeight);
 
-    if (totalHeight> 3500){
+    if (totalHeight > 3500) {
       Scroll.animateScroll.scrollTo(5200);
     }
 
     if (width < 700) {
       Scroll.animateScroll.scrollTo(5050);
-    } else if(totalHeight< 3500) {
+    } else if (totalHeight < 3500) {
       Scroll.animateScroll.scrollTo(2100);
     }
   };
 
   return (
-    
     <Navbar className="fixed-top" bg="light" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/">
@@ -59,7 +58,7 @@ function NavBar({ handleQuery }) {
 
             <Nav.Link onClick={scrollTo}>Favorites</Nav.Link>
           </Nav>
-          <Form className="d-flex">
+          {/* <Form className="d-flex">
             <FormControl
               type="search"
               placeholder="Search"
@@ -73,7 +72,7 @@ function NavBar({ handleQuery }) {
               className="btn-search"
               onClick={handleSearchClick}
             ></BiSearch>
-          </Form>
+          </Form> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

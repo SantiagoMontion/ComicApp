@@ -16,6 +16,8 @@ import ErrorLogo from "../styles/img/ErrorLogo.png";
 import Favorites from "./Favorites";
 import * as Scroll from "react-scroll";
 import {BiArrowToTop} from "react-icons/bi"
+
+
 function Home() {
   const favorites = useSelector((state) => state.favorites);
   const comics = useSelector((state) => state.comicsLoaded);
