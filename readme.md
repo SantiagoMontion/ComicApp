@@ -8,10 +8,10 @@ To run the proyect.
 Create .env file inside api folder.
 
 
-DB_USER=postgresUser
-DB_PASSWORD=postgresPassword
-DB_HOST=localhost
-DB_NAME=databasename
+DB_USER=postgresUser<br>
+DB_PASSWORD=postgresPassword<br>
+DB_HOST=localhost<br>
+DB_NAME=databasename<br>
 
 
 <br></br>
